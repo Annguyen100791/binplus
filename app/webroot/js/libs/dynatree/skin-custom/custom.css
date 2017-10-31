@@ -1,0 +1,91 @@
+/*******************************************************************************
+ * Sample for a Dynatree custom stylesheet.
+ * This is expected to be included after the standard ui.dynatree.css, thus
+ * overridung the defaults. 
+ */
+ /*
+.dynatree-has-children span.dynatree-icon
+{
+    background-position: 0 0;
+	background-image: url("doc_with_children.gif");
+}
+
+.dynatree-ico-cf span.dynatree-icon
+{
+	background-image: url("folder_docs.gif");
+}
+
+.dynatree-ico-ef span.dynatree-icon
+{
+	background-image: url("folder_images.gif");
+}
+*/
+
+
+/*******************************************************************************
+ * Node titles
+ */
+/*
+span.dynatree-has-children a
+{
+	font-style: oblique;
+}
+*/
+span.dynatree-selected a
+{
+	color: #246ae6;
+	font-style: normal;
+}
+
+span.dynatree-active a,
+span.dynatree-active a:hovers
+{
+	border: 1px dashed #dcdcdc;
+	background-color: #e4ecfc !important; /* reddish */
+}
+
+
+/*******************************************************************************
+ * Custom node classes (sample)
+ */
+
+span.custom1 a
+{
+	background-color: #ffffbb;
+	color: maroon;
+}
+span.custom1 span.dynatree-icon
+{
+    background-position: 0 0;
+	background-image: url("customDoc2.gif");
+}
+
+span.custom2 a
+{
+	font-weight: bold;
+	background-color: silver;
+	color: navy;
+}
+span.custom2 span.dynatree-icon
+{
+    background-position: 0 0;
+	background-image: url("folder_page.gif");
+}
+
+span.male a
+{
+	background-color: #ffffbb;
+	color: maroon;
+}
+span.male span.dynatree-icon
+{
+   background-position: 0 0;
+	background: url("male.png");
+}
+a.dynatree-title {
+    white-space: normal;
+    display: block;
+    padding-left: 45px;
+    margin-top: -16px;
+	
+}

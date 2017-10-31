@@ -1,0 +1,12 @@
+/*select.focus, textarea.focus, input.focus { border: 1px solid lime!important; font-weight: bold }*/
+select.warning, textarea.warning, input.warning { 
+	border-color: rgba(256, 0, 0, 0.8) !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(256, 0, 0, 0.6);
+    outline: 0 none;
+}
+.required{
+	color: red;
+}
+.warning{
+	color: red
+}

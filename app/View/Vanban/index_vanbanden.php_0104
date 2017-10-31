@@ -1,0 +1,425 @@
+<?php
+	echo $this->Html->script(
+		array(
+			  'libs/jquery/jquery.hashchange'
+			  )
+	);
+	echo $this->Form->hidden('trinh_vb', array('id' => 'trinh_vb', 'value' =>$this->Layout->check_permission('VanBan.trinh')));
+	echo $this->Form->hidden('duyet_vb', array('id' => 'duyet_vb', 'value' =>$this->Layout->check_permission('VanBan.duyet')));
+?>
+<div style="padding:20px">
+    <div class="content-box" id="vanban-box"><!-- Start Content Box -->
+        <div class="content-box-header">
+            <h3><?php echo $this->Html->image('icons/page_white_stack.png', array('align' => 'left')) ?>&nbsp; Văn bản</h3>
+            
+            <ul class="content-box-tabs">
+				<?php if($this->Layout->check_permission('VanBan.trinh')): ?>
+                 <li><a href="#vanban-chotrinh" class="default-tab" rel="vanban-chotrinh" id="vanban-chotrinh-tab" title="Danh sách các văn bản chờ trình"><?php echo $this->Html->image('icons/page_white.png', array('align' => 'left')) ?>&nbsp; Chờ trình</a></li>
+                <?php endif ; ?>
+                <?php if($this->Layout->check_permission('VanBan.datrinh')): ?>
+                 
+                 <li><a href="#vanban-datrinh" class="default-tab" rel="vanban-datrinh" id="vanban-datrinh-tab" title="Danh sách các văn bản đến đã trình"><?php echo $this->Html->image('icons/page_white.png', array('align' => 'left')) ?>&nbsp; Đã trình</a></li>
+                 <?php endif;?>
+                <?php if($this->Layout->check_permission('VanBan.duyet')): ?>
+                <li><a href="#vanban-choduyet" class="default-tab" rel="vanban-choduyet" id="vanban-choduyet-tab" title="Danh sách các văn bản chờ duyệt"><?php echo $this->Html->image('icons/page_white.png', array('align' => 'left')) ?>&nbsp;Chờ duyệt</a></li>
+                <?php endif;?>
+                
+                 <?php if($this->Layout->check_permission('VanBan.daduyet')): ?>
+                <li><a href="#vanban-daduyet" class="default-tab" rel="vanban-daduyet" id="vanban-daduyet-tab" title="Danh sách các văn bản đã duyệt"><?php echo $this->Html->image('icons/page_white.png', array('align' => 'left')) ?>&nbsp; Đã duyệt</a></li>
+                <?php endif;?>
+                <?php if($this->Layout->check_permission('VanBan.dachuyen')): ?>
+                <li><a href="#vanban-dachuyen" class="default-tab" rel="vanban-dachuyen" id="vanban-dachuyen-tab" title="Danh sách các văn bản đã chuyển PGĐ duyệt"><?php echo $this->Html->image('icons/page_white.png', array('align' => 'left')) ?>&nbsp; GĐ chuyển PGĐ</a></li>
+                <?php endif;?>
+                 <?php if($this->Layout->check_permission('VanBan.xemvbquantrong')): ?>
+                <li><a href="#vanban-quantrong" class="default-tab" rel="vanban-quantrong" id="vanban-quantrong-tab" title="Danh sách các văn bản đến quan trọng"><?php echo $this->Html->image('icons/page_white.png', array('align' => 'left')) ?>&nbsp; Quan trọng</a></li>
+                <?php endif;?>
+				<?php if($this->Layout->check_permission('VanBan.xemvbthongbao')): ?>
+                <li><a href="#vanban-thongbao" class="default-tab" rel="vanban-thongbao" id="vanban-thongbao-tab" title="Danh sách các văn bản đến mang tính chất thông báo"><?php echo $this->Html->image('icons/page_white.png', array('align' => 'left')) ?>&nbsp; Chuyển bypass</a></li>
+                <?php endif;?>
+                <?php if($this->Layout->check_permission('VanBan.ketqua')): ?>
+                <li><a href="#vanban-capnhatketqua" class="default-tab" rel="vanban-capnhatketqua" id="vanban-capnhatketqua-tab" title="Danh sách các văn bản đến đã cập nhật kết quả"><?php echo $this->Html->image('icons/page_white.png', array('align' => 'left')) ?>&nbsp; Có giao ngày hoàn thành</a></li>
+                <?php endif;?>
+                <?php if($this->Layout->check_permission('VanBan.pgdduyet')): ?>
+                <li><a href="#vanban-pgdduyet" class="default-tab" rel="vanban-pgdduyet" id="vanban-pgdduyet-tab" title="Danh sách các văn bản đến Phó giám đốc duyệt"><?php echo $this->Html->image('icons/page_white.png', array('align' => 'left')) ?>&nbsp; PGĐ duyệt</a></li>
+                <?php  endif;?>
+            </ul>
+            
+            <div class="clear"></div>
+            
+        </div> <!-- End .content-box-header -->
+        
+        <div class="content-box-content">
+             <!-- Văn bản đến mang tính quan trọng(Văn bản mà CPV chuyển thẳng đến người nhận mà ko qua GĐ duyệt) -->    
+            <div class="tab-content default-tab" id="vanban-quantrong" style="display:none">
+                    <div align="right" style="padding-bottom:10px">
+                    <form id="form-quantrong-search">
+                        <?php
+                            echo '<b>Từ khóa</b> : ';
+                            echo $this->Form->input('Vanban.keyword', 
+                                                    array(
+                                                            'label' => 	false,
+                                                            'div'	=>	false,
+                                                            'class'	=>	'text-input',
+                                                            'title'	=>	'Tìm kiếm văn bản quan trọng theo từ khóa',
+                                                            'id'	=>	'chotrinh-keyword'));
+                            echo '&nbsp;&nbsp;<b>Văn bản phát hành</b> :';
+                            echo '&nbsp; từ ngày &nbsp;';
+                            echo $this->Form->input('Vanban.ngay_batdau', 
+                                                    array(
+                                                            'label' => 	false,
+                                                            'div'	=>	false,
+                                                            'class'	=>	'text-input tu_ngay',
+                                                            'style'	=>	'width:80px',
+                                                            'title'	=>	'Click để chọn ngày',
+                                                            'id'	=>	'chotrinh-ngay-batdau'));
+                            echo '&nbsp; đến ngày &nbsp;';
+                            echo $this->Form->input('Vanban.ngay_ketthuc', 
+                                                    array(
+                                                            'label' => false,
+                                                            'div'	=>	false,
+                                                            'class'	=>	'text-input den_ngay',
+                                                            'style'	=>	'width:80px',
+                                                            'title'	=>	'Click để chọn ngày',
+                                                            'id'	=>	'chotrinh-ngay-ketthuc'));
+                                                            
+                        ?>
+                        <input class="button" type="submit" value="Tìm kiếm nhanh" id="btn-quantrong-search" title="Tìm kiếm nhanh văn bản đến mang tính chất thông báo " />
+                    </form>
+                    </div>
+                    <div class="content-box-content" id="quantrong-list-content" style="padding:5px 0px">
+                        <img src="/img/circle_ball.gif" />
+                    </div>
+                </div>
+            <!-- Văn bản đến chờ trình -->            
+            <div class="tab-content default-tab" id="vanban-chotrinh" style="display:none">
+            	<div align="right" style="padding-bottom:10px">
+                <form id="form-chotrinh-search">
+                    <?php
+                        echo '<b>Từ khóa</b> : ';
+                        echo $this->Form->input('Vanban.keyword', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input',
+                                                        'title'	=>	'Tìm kiếm văn bản chưa xem theo từ khóa',
+                                                        'id'	=>	'chotrinh-keyword'));
+                        echo '&nbsp;&nbsp;<b>Văn bản phát hành</b> :';
+                        echo '&nbsp; từ ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_batdau', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input tu_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-batdau'));
+                        echo '&nbsp; đến ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_ketthuc', 
+                                                array(
+                                                        'label' => false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input den_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-ketthuc'));
+                                                        
+                    ?>
+                    <input class="button" type="submit" value="Tìm kiếm nhanh" id="btn-chotrinh-search" title="Tìm kiếm nhanh văn bản chờ trình " />
+                </form>
+                </div>
+                <div class="content-box-content" id="chotrinh-list-content" style="padding:5px 0px">
+                    <img src="/img/circle_ball.gif" />
+                </div>
+            </div>
+            <!-- Văn bản đến đã trình -->            
+            <div class="tab-content default-tab" id="vanban-datrinh" style="display:none">
+            	<div align="right" style="padding-bottom:10px">
+                <form id="form-datrinh-search">
+                    <?php
+                        echo '<b>Từ khóa</b> : ';
+                        echo $this->Form->input('Vanban.keyword', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input',
+                                                        'title'	=>	'Tìm kiếm văn bản chưa xem theo từ khóa',
+                                                        'id'	=>	'chotrinh-keyword'));
+                        echo '&nbsp;&nbsp;<b>Văn bản phát hành</b> :';
+                        echo '&nbsp; từ ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_batdau', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input tu_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-batdau'));
+                        echo '&nbsp; đến ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_ketthuc', 
+                                                array(
+                                                        'label' => false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input den_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-ketthuc'));
+                                                        
+                    ?>
+                    <input class="button" type="submit" value="Tìm kiếm nhanh" id="btn-datrinh-search" title="Tìm kiếm nhanh văn bản đã trình " />
+                </form>
+                </div>
+                <div class="content-box-content" id="datrinh-list-content" style="padding:5px 0px">
+                    <img src="/img/circle_ball.gif" />
+                </div>
+            </div>
+            <!-- Văn bản đến chờ duyệt -->            
+            <div class="tab-content default-tab" id="vanban-choduyet" style="display:none">
+            	<div align="right" style="padding-bottom:10px">
+                <form id="form-choduyet-search">
+                    <?php
+                        echo '<b>Từ khóa</b> : ';
+                        echo $this->Form->input('Vanban.keyword', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input',
+                                                        'title'	=>	'Tìm kiếm văn bản chưa xem theo từ khóa',
+                                                        'id'	=>	'chotrinh-keyword'));
+                        echo '&nbsp;&nbsp;<b>Văn bản phát hành</b> :';
+                        echo '&nbsp; từ ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_batdau', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input tu_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-batdau'));
+                        echo '&nbsp; đến ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_ketthuc', 
+                                                array(
+                                                        'label' => false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input den_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-ketthuc'));
+                                                        
+                    ?>
+                    <input class="button" type="submit" value="Tìm kiếm nhanh" id="btn-choduyet-search" title="Tìm kiếm nhanh văn bản chờ duyệt " />
+                </form>
+                </div>
+                <div class="content-box-content" id="choduyet-list-content" style="padding:5px 0px">
+                    <img src="/img/circle_ball.gif" />
+                </div>
+            </div>
+            <!-- Văn bản đến đã duyệt -->            
+            <div class="tab-content default-tab" id="vanban-daduyet" style="display:none">
+            	<div align="right" style="padding-bottom:10px">
+                <form id="form-daduyet-search">
+                    <?php
+                        echo '<b>Từ khóa</b> : ';
+                        echo $this->Form->input('Vanban.keyword', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input',
+                                                        'title'	=>	'Tìm kiếm văn bản chưa xem theo từ khóa',
+                                                        'id'	=>	'chotrinh-keyword'));
+                        echo '&nbsp;&nbsp;<b>Văn bản phát hành</b> :';
+                        echo '&nbsp; từ ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_batdau', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input tu_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-batdau'));
+                        echo '&nbsp; đến ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_ketthuc', 
+                                                array(
+                                                        'label' => false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input den_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-ketthuc'));
+                                                        
+                    ?>
+                    <input class="button" type="submit" value="Tìm kiếm nhanh" id="btn-daduyet-search" title="Tìm kiếm nhanh văn bản chờ duyệt " />
+                </form>
+                </div>
+                <div class="content-box-content" id="daduyet-list-content" style="padding:5px 0px">
+                    <img src="/img/circle_ball.gif" />
+                </div>
+            </div>
+            <!-- Văn bản đến đã chuyển PGĐ duyệt -->            
+            <div class="tab-content default-tab" id="vanban-dachuyen" style="display:none">
+            	<div align="right" style="padding-bottom:10px">
+                <form id="form-dachuyen-search">
+                    <?php
+                        echo '<b>Từ khóa</b> : ';
+                        echo $this->Form->input('Vanban.keyword', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input',
+                                                        'title'	=>	'Tìm kiếm văn bản đã chuyển PGĐ duyệt theo từ khóa',
+                                                        'id'	=>	'chotrinh-keyword'));
+                        echo '&nbsp;&nbsp;<b>Văn bản phát hành</b> :';
+                        echo '&nbsp; từ ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_batdau', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input tu_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-batdau'));
+                        echo '&nbsp; đến ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_ketthuc', 
+                                                array(
+                                                        'label' => false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input den_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-ketthuc'));
+                                                        
+                    ?>
+                    <input class="button" type="submit" value="Tìm kiếm nhanh" id="btn-dachuyen-search" title="Tìm kiếm nhanh văn bản đã chuyển PGĐ duyệt " />
+                </form>
+                </div>
+                <div class="content-box-content" id="dachuyen-list-content" style="padding:5px 0px">
+                    <img src="/img/circle_ball.gif" />
+                </div>
+            </div>
+            <!-- Văn bản đến mang tính chất thông báo(Văn bản mà CPV chuyển thẳng đến người nhận mà ko qua GĐ duyệt) -->            <div class="tab-content default-tab" id="vanban-thongbao" style="display:none">
+            	<div align="right" style="padding-bottom:10px">
+                <form id="form-thongbao-search">
+                    <?php
+                        echo '<b>Từ khóa</b> : ';
+                        echo $this->Form->input('Vanban.keyword', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input',
+                                                        'title'	=>	'Tìm kiếm văn bản chưa xem theo từ khóa',
+                                                        'id'	=>	'chotrinh-keyword'));
+                        echo '&nbsp;&nbsp;<b>Văn bản phát hành</b> :';
+                        echo '&nbsp; từ ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_batdau', 
+                                                array(
+                                                        'label' => 	false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input tu_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-batdau'));
+                        echo '&nbsp; đến ngày &nbsp;';
+                        echo $this->Form->input('Vanban.ngay_ketthuc', 
+                                                array(
+                                                        'label' => false,
+                                                        'div'	=>	false,
+                                                        'class'	=>	'text-input den_ngay',
+                                                        'style'	=>	'width:80px',
+                                                        'title'	=>	'Click để chọn ngày',
+                                                        'id'	=>	'chotrinh-ngay-ketthuc'));
+                                                        
+                    ?>
+                    <input class="button" type="submit" value="Tìm kiếm nhanh" id="btn-thongbao-search" title="Tìm kiếm nhanh văn bản đến mang tính chất thông báo " />
+                </form>
+                </div>
+                <div class="content-box-content" id="thongbao-list-content" style="padding:5px 0px">
+                    <img src="/img/circle_ball.gif" />
+                </div>
+            </div>
+           
+            <!-- Văn bản đến đã cập nhật kết quả xử lý -->    
+            <div class="tab-content default-tab" id="vanban-capnhatketqua" style="display:none">
+                    <div align="right" style="padding-bottom:10px">
+                    <form id="form-capnhatketqua-search">
+                        <?php
+                            echo '<b>Từ khóa</b> : ';
+                            echo $this->Form->input('Vanban.keyword', 
+                                                    array(
+                                                            'label' => 	false,
+                                                            'div'	=>	false,
+                                                            'class'	=>	'text-input',
+                                                            'title'	=>	'Tìm kiếm văn bản chưa xem theo từ khóa',
+                                                            'id'	=>	'chotrinh-keyword'));
+                            echo '&nbsp;&nbsp;<b>Văn bản phát hành</b> :';
+                            echo '&nbsp; từ ngày &nbsp;';
+                            echo $this->Form->input('Vanban.ngay_batdau', 
+                                                    array(
+                                                            'label' => 	false,
+                                                            'div'	=>	false,
+                                                            'class'	=>	'text-input tu_ngay',
+                                                            'style'	=>	'width:80px',
+                                                            'title'	=>	'Click để chọn ngày',
+                                                            'id'	=>	'chotrinh-ngay-batdau'));
+                            echo '&nbsp; đến ngày &nbsp;';
+                            echo $this->Form->input('Vanban.ngay_ketthuc', 
+                                                    array(
+                                                            'label' => false,
+                                                            'div'	=>	false,
+                                                            'class'	=>	'text-input den_ngay',
+                                                            'style'	=>	'width:80px',
+                                                            'title'	=>	'Click để chọn ngày',
+                                                            'id'	=>	'chotrinh-ngay-ketthuc'));
+                                                            
+                        ?>
+                        <input class="button" type="submit" value="Tìm kiếm nhanh" id="btn-capnhatketqua-search" title="Tìm kiếm nhanh văn bản đến đã cập nhật kết quả xử lý " />
+                    </form>
+                    </div>
+                    <div class="content-box-content" id="capnhatketqua-list-content" style="padding:5px 0px">
+                        <img src="/img/circle_ball.gif" />
+                    </div>
+                </div>
+            <!-- Văn bản đến do phó giám đốc duyệt(chức năng này làm cho GĐVT) -->    
+            <div class="tab-content default-tab" id="vanban-pgdduyet" style="display:none">
+                    <div align="right" style="padding-bottom:10px">
+                    <form id="form-pgdduyet-search">
+                        <?php
+                            echo '<b>Từ khóa</b> : ';
+                            echo $this->Form->input('Vanban.keyword', 
+                                                    array(
+                                                            'label' => 	false,
+                                                            'div'	=>	false,
+                                                            'class'	=>	'text-input',
+                                                            'title'	=>	'Tìm kiếm văn bản phó giám đốc duyệt theo từ khóa',
+                                                            'id'	=>	'chotrinh-keyword'));
+                            echo '&nbsp;&nbsp;<b>Văn bản phát hành</b> :';
+                            echo '&nbsp; từ ngày &nbsp;';
+                            echo $this->Form->input('Vanban.ngay_batdau', 
+                                                    array(
+                                                            'label' => 	false,
+                                                            'div'	=>	false,
+                                                            'class'	=>	'text-input tu_ngay',
+                                                            'style'	=>	'width:80px',
+                                                            'title'	=>	'Click để chọn ngày',
+                                                            'id'	=>	'chotrinh-ngay-batdau'));
+                            echo '&nbsp; đến ngày &nbsp;';
+                            echo $this->Form->input('Vanban.ngay_ketthuc', 
+                                                    array(
+                                                            'label' => false,
+                                                            'div'	=>	false,
+                                                            'class'	=>	'text-input den_ngay',
+                                                            'style'	=>	'width:80px',
+                                                            'title'	=>	'Click để chọn ngày',
+                                                            'id'	=>	'chotrinh-ngay-ketthuc'));
+                                                            
+                        ?>
+                        <input class="button" type="submit" value="Tìm kiếm nhanh" id="btn-pgdduyet-search" title="Tìm kiếm nhanh văn bản đến do PGĐ duyệt " />
+                    </form>
+                    </div>
+                    <div class="content-box-content" id="pgdduyet-list-content" style="padding:5px 0px">
+                        <img src="/img/circle_ball.gif" />
+                    </div>
+                </div>
+                
+                
+        </div>
+    </div><!-- End Content Box -->
+</div>    

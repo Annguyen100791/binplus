@@ -1,0 +1,137 @@
+/* RESET SETING "phuongnamdesign" */
+@charset "utf-8";
+/* CSS Document */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+	 background-color:transparent;
+}
+ol,ul{ margin:0;	padding:0;	list-style-type:none;	font-size:0;	line-height:0;}
+.spacer{	clear:both; font-size:0; line-height:0;}
+a{	text-decoration: none;}
+a:hover{ text-decoration: underline;}
+.clear{ clear: both;}
+a img{ border: none;}
+
+body{
+	padding:0;
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	background:url(../img/back2.png) 0 0 repeat-x #fff;
+	color: #696969;
+	font-size: 12px;
+}
+/* end RESET SETING */
+
+/* START MAIN SETING */
+
+#warpper {
+	margin: 0 auto;
+	width: 990px;
+	background-color: transparent;
+}
+#intro{
+	width: 990px;
+	height: 608px;
+	background-image: url(../img/intro.png);
+}
+#foot_intro{
+	width: 990px;
+}
+.tdn{
+	width: 130px;
+	float: left;
+	font-size: 15px;
+	padding-top: 5px;
+}
+.foot_text{
+	font-size: 14px;
+	font-weight: bold;
+	color: #0067b4;
+	padding-bottom: 5px;
+}
+.nhomk{
+	width:135px;
+	float: left;
+	padding: 23px 0 0 126px;
+}
+.butlg{
+	width:150px;
+	float: left;
+	padding-top: 20px;
+}
+.slearss{
+	clear: both;
+}
+/* end MAIN SETING */
+
+.theme-default .nivo-caption a{background-color:#000000;color:#FFFFFF;cursor:pointer;float:left;font:14px/36px Century,serif;padding:0 13px;letter-spacing:-1px}
+.theme-default .nivo-caption a:hover{color:#FFFFFF;text-decoration:none}
+.nivoSlider{position:relative}.nivoSlider img{position:absolute;top:0px;left:0px}
+.nivoSlider a.nivo-imageLink{position:absolute;top:0px;left:0px;width:100%;height:100%;border:none;padding:0;margin:0;display:none;cursor:auto}
+.nivo-slice{display:block;position:absolute;z-index:5;height:100%}
+.nivo-box{display:block;position:absolute;z-index:5}
+.nivo-caption{padding:100px 0 0px 180px;color:#000000;z-index:5}
+.nivo-caption p{float:left;clear:left;font-family:Century, serif}
+.nivo-caption .off{color:red;font-size:35px;line-height:95px;*line-height:85px; font-family: Arial, Helvetica, sans-serif;}
+.nivo-caption .off span{font-size:50px;line-height:33px;vertical-align:top}
+.nivo-caption .top{font-size:40px;letter-spacing:-2px;}
+.nivo-caption a{display:inline !important}
+.nivo-caption .button{margin-top:15px}
+.nivo-caption .button,.nivo-caption .button p span{float:left;clear:left;white-space:nowrap}
+.nivo-caption .button p{clear:none;font:12px Arial,sans-serif;text-transform:uppercase;margin-left:15px;padding-top:3px;letter-spacing:-1px}
+.nivo-html-caption{display:none}
+.nivo-directionNav a{position:absolute;top:45%;z-index:9;cursor:pointer}
+.nivo-prevNav{left:0px}.nivo-nextNav{right:0px}
+.nivo-controlNav a{position:relative;z-index:9;cursor:pointer}
+.nivo-controlNav a.active{font-weight:bold}
+
+
+input,select,textarea,button{color:#606060}
+input.input-text,select,textarea{border:1px solid #CDC7C7;border-radius:3px}
+.form-list p{padding:0}
+.form-list label{color:#000;padding:20px 0 5px;text-align:left;width:auto}
+.form-list textarea{width:315px;line-height:20px}
+.form-list .input-box{clear:left;float:left; padding-bottom: 5px;  padding-top: 10px;}
+.form-list input.input-text,.form-list li.fields .field input.input-text{width:245px;height:25px;line-height:20px; padding-left: 4px;}
+.form-list li.fields .field{clear:none;float:left;padding:0 0 5px}
+.form-list li.fields .field:first-child,#recipients_options .add-row .field{margin-right:28px}
+.form-list .add-field .input-box{margin-left:0}
+.form-list select{width:321px;padding:4px 1px}
+.form-list .control .input-box{line-height:16px;margin-left:0;padding-top:0;position:static}
+.form-list .control label{line-height:16px}
+
+.msg {
+	border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;
+	border: 1px solid; margin: 0 0 15px 0; padding: 8px 10px 0 10px;
+}
+.msg p {margin: 0 0 8px 0; padding-left: 25px; float: none;}
+.msg-ok {border-color: #a6d877; background: #d2ecba url("../img/msg-ok.png") repeat-x; color: #336801;}
+.msg-error {border-color: #f3abab; background: #f9c9c9 url("../img/msg-error.png") repeat-x; color: #8d0d0d;}
+.msg-warn {border-color: #d7e059; background: #f3f7aa url("../img/msg-warn.png") repeat-x; color: #6c6600;}
+.msg-info {border-color: #9fd1f5; background: #c3e6ff url("../img/msg-info.png") repeat-x; color: #005898;}
+.msg-ok p {background: url("../img/accept.png") 0 50% no-repeat;}
+.msg-error p {background: url("../img/cross_octagon.png") 0 50% no-repeat;}
+.msg-warn p {background: url("../img/exclamation_octagon_fram.png") 0 50% no-repeat;}
+.msg-info p {background: url("../img/exclamation.png") 0 50% no-repeat;}
+.error {color: #b70b0b;}
+.button {border: 1px solid #00487a; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; background: #0567ad url("../img/button.gif") repeat-x; padding: 5px 9px 5px; text-shadow: #00487a 1px 1px 0; color: #fff; cursor: pointer;}
+	.button:hover,
+	.button:focus,
+	.button:active {border-color: #272727; background: #2a2a2a url("../img/altbutton.gif") repeat-x; text-shadow: #000 1px 1px 0; color: #fff;}
